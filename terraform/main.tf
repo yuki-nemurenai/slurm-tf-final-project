@@ -1,16 +1,11 @@
 data "yandex_compute_image" "this" {
   name = "${var.image_name}-${var.image_tag}"
 }
+
 resource "yandex_compute_instance_group" "this" {
   name                = "${local.resource_name}-${var.instance_name}"
   service_account_id  = yandex_iam_service_account.this.id
   deletion_protection = false
-  depends_on = [
-    yandex_iam_service_account.this,
-    yandex_resourcemanager_folder_iam_binding.this,
-    yandex_vpc_network.this,
-    yandex_vpc_subnet.this
-  ]
 
   instance_template {
     platform_id = "standard-v1"
@@ -59,4 +54,15 @@ resource "yandex_compute_instance_group" "this" {
     max_expansion   = 2
     max_deleting    = 2
   }
+
+  application_load_balancer {
+    target_group_name = "ws-tg"
+  }
+
+  depends_on = [
+    yandex_iam_service_account.this,
+    yandex_resourcemanager_folder_iam_binding.this,
+    yandex_vpc_network.this,
+    yandex_vpc_subnet.this
+  ]
 }
