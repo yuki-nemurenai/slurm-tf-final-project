@@ -1,4 +1,4 @@
-source "yandex" "yc_nginx_centos" {
+source "yandex" "this" {
   source_image_family = var.source_image_family
   ssh_username        = var.ssh_username
   use_ipv4_nat        = var.use_ipv4_nat
@@ -10,12 +10,14 @@ source "yandex" "yc_nginx_centos" {
 
 build {
   sources = [
-    "source.yandex.yc_nginx_centos"
+    "source.yandex.this"
   ]
 
   provisioner "ansible" {
     user = "centos"
     playbook_file = "ansible/playbook.yml"
-    ansible_ssh_extra_args = ["-o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa"]
+    ansible_ssh_extra_args = [
+      "-o HostKeyAlgorithms=+ssh-rsa -o PubkeyAcceptedKeyTypes=+ssh-rsa"
+    ]
   }
 }

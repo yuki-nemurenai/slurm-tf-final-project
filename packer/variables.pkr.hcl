@@ -15,17 +15,17 @@ variable "use_ipv4_nat" {
 
 variable "image_description" {
   type = string
-  default = "NGINX Centos 7 Image"
+  default = "Centos Defaulf Image"
 }
 
 variable "image_family" {
   type = string
-  default = "centos-7-nginx"
+  default = "centos-7-default"
 }
 
 variable "image_name" {
   type = string
-  default = "nginx"
+  default = "centos"
 }
 
 variable "image_tag" {
