@@ -55,10 +55,6 @@ resource "yandex_compute_instance_group" "this" {
     max_deleting    = 2
   }
 
-  application_load_balancer {
-    target_group_name = "ws-tg"
-  }
-
   depends_on = [
     yandex_iam_service_account.this,
     yandex_resourcemanager_folder_iam_binding.this,
