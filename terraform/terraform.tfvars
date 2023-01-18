@@ -32,3 +32,5 @@ http_router_name = "nginx-router"
 virtual_host_name = "nginx-virtual-host"
 lb_frontend_port = 443
 http_backend_port = 80
+
+vpc_network_name = "backend-net"

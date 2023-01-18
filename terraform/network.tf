@@ -1,5 +1,5 @@
 resource "yandex_vpc_network" "this" {
-  name 	 = "${local.resource_name}-lab-net"
+  name 	 = "${local.resource_name}-${var.vpc_network_name}"
   labels = var.labels
 }
 

@@ -98,3 +98,8 @@ variable "http_backend_port" {
   type = number
   description = "Application load balancer backend port"
 }
+
+variable "vpc_network_name" {
+  type = string
+  description = "Virtual Private Cloud Network name"
+}
