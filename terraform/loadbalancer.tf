@@ -74,3 +74,17 @@ resource "yandex_alb_load_balancer" "this" {
 resource "yandex_alb_http_router" "this" {
   name      = "my-http-router"
 }
+
+resource "yandex_alb_virtual_host" "this" {
+  name      = "my-virtual-host"
+  http_router_id = yandex_alb_http_router.this.id
+  route {
+    name = "my-route"
+    http_route {
+      http_route_action {
+        backend_group_id = yandex_alb_backend_group.this.id
+        timeout = "3s"
+      }
+    }
+  }
+}

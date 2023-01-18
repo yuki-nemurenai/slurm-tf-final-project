@@ -1,4 +1,4 @@
-instance_name = "nginx-group"
+instance_group_name = "nginx-group"
 
 labels = {
   "project" = "slurm"

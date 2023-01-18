@@ -3,12 +3,14 @@ data "yandex_compute_image" "this" {
 }
 
 resource "yandex_compute_instance_group" "this" {
-  name                = "${local.resource_name}-${var.instance_name}"
+  name                = "${local.resource_name}-${var.instance_group_name}"
   service_account_id  = yandex_iam_service_account.this.id
   deletion_protection = false
+  labels = var.labels
 
   instance_template {
-    platform_id = "standard-v1"
+    platform_id = local.platform_id
+    labels = var.labels
     resources {
       memory = var.resources.memory
       cores  = var.resources.cpu
@@ -26,8 +28,6 @@ resource "yandex_compute_instance_group" "this" {
       network_id = yandex_vpc_network.this.id
       nat = true
     }
-
-    labels = var.labels
 
     metadata = {
       ssh-keys = var.public_ssh_key_path != "" ? "centos:${file(var.public_ssh_key_path)}" : "yc-user:${tls_private_key.rsa_key[0].public_key_openssh}"

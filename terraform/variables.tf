@@ -1,4 +1,4 @@
-variable "instance_name" {
+variable "instance_group_name" {
   type        = string
 }
 
