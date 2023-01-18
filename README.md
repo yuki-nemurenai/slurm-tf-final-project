@@ -15,7 +15,7 @@ export TF_VAR_folder_id=$(yc config get folder-id)
 ```
 cd slurm-tf-final-project/packer/
 packer build .
-***Imagе name can be set by variables image_name and image_tag***
+*Imagе name can be set by variables image_name and image_tag*
 ```
 ### Deploy your infrastructure to the Yandex Cloud:
 ```
