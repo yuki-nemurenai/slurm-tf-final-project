@@ -24,3 +24,11 @@ scale_count = 3
 
 image_name = "nginx"
 image_tag = 1
+
+target_group_name = "nginx-group"
+backend_group_name = "nginx-backend"
+loadbalancer_name = "nginx-loadbalancer"
+http_router_name = "nginx-router"
+virtual_host_name = "nginx-virtual-host"
+lb_frontend_port = 443
+http_backend_port = 80

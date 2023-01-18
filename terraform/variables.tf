@@ -50,5 +50,33 @@ variable "image_name" {
 }
 
 variable "image_tag" {
- type = number
+  type = number
+}
+
+variable "target_group_name" {
+  type = string
+}
+
+variable "loadbalancer_name" {
+  type = string
+}
+
+variable "http_router_name" {
+  type = string
+}
+
+variable "backend_group_name" {
+  type = string
+}
+
+variable "virtual_host_name" {
+  type = string 
+}
+
+variable "lb_frontend_port" {
+  type = number
+}
+
+variable "http_backend_port" {
+  type = number
 }

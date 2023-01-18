@@ -1,5 +1,6 @@
 resource "yandex_alb_target_group" "this" {
-  name      = "my-target-group"
+  name      = "${local.resource_name}-${var.target_group_name}"
+  labels = var.labels
 
   dynamic "target" {
     for_each = yandex_compute_instance_group.this.instances
@@ -11,12 +12,13 @@ resource "yandex_alb_target_group" "this" {
 }
 
 resource "yandex_alb_backend_group" "this" {
-  name = "ws-backend-group"
+  name = "${local.resource_name}-${var.backend_group_name}"
+  labels = var.labels
 
   http_backend {
-    name             = "ws-http-backend"
+    name             = var.backend_group_name
     weight           = 1
-    port             = 80
+    port             = var.http_backend_port
     target_group_ids = [yandex_alb_target_group.this.id]
     load_balancing_config {
       panic_threshold = 50
@@ -24,7 +26,7 @@ resource "yandex_alb_backend_group" "this" {
     healthcheck {
       timeout  = "1s"
       interval = "1s"
-      healthcheck_port = 80
+      healthcheck_port = var.http_backend_port
       http_healthcheck {
         path = "/"
       }
@@ -33,7 +35,8 @@ resource "yandex_alb_backend_group" "this" {
 }
 
 resource "yandex_alb_load_balancer" "this" {
-  name        = "my-load-balancer"
+  name        = "${local.resource_name}-${var.loadbalancer_name}"
+  labels = var.labels
 
   network_id  = yandex_vpc_network.this.id
 
@@ -54,7 +57,7 @@ resource "yandex_alb_load_balancer" "this" {
         external_ipv4_address {
         }
       }
-      ports = [ 80 ]
+      ports = [ var.lb_frontend_port ]
     }
     http {
       handler {
@@ -72,11 +75,12 @@ resource "yandex_alb_load_balancer" "this" {
 }
 
 resource "yandex_alb_http_router" "this" {
-  name      = "my-http-router"
+  name      = "${local.resource_name}-${var.http_router_name}"
+  labels = var.labels
 }
 
 resource "yandex_alb_virtual_host" "this" {
-  name      = "my-virtual-host"
+  name      = "${local.resource_name}-${var.virtual_host_name}"
   http_router_id = yandex_alb_http_router.this.id
   route {
     name = "my-route"
